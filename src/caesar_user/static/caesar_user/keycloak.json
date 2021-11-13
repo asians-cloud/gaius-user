@@ -1,0 +1,8 @@
+{
+  "realm": "cdn",
+  "auth-server-url": "http://id.caesar.local:8080/auth/",
+  "ssl-required": "external",
+  "resource": "js",
+  "public-client": true,
+  "confidential-port": 0
+}

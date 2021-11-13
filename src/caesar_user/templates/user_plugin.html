@@ -1,0 +1,80 @@
+{% load static %}
+
+<div>
+    <p id="loginpanel"><button onclick="login()">Login</button> </p>
+        
+    <p id="userprofile"  style="display:none">
+        欢迎: <a id="username" href="###" onclick="gotoProfile()"></a>
+            <button onclick="logout()">退出</button>
+    </p>
+</div>
+
+<script src="http://user.suyun.cdn/auth/js/keycloak.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var keycloak = Keycloak('{% static "caesar_user/keycloak.json" %}');
+    var loadUserData = function () {
+        console.debug(keycloak.subject)
+        
+        document.getElementById('userprofile').style.display = "block";
+        document.getElementById('loginpanel').style.display = "none";
+        
+        if (keycloak.idToken) {
+            document.getElementById('username').innerHTML = keycloak.idTokenParsed.preferred_username;
+        } else {
+            keycloak.loadUserProfile(function() {
+                document.getElementById('username').innerHTML = keycloak.profile.username;
+            }, function() {
+                //document.getElementById('profileType').innerHTML = 'Failed to retrieve user details. Please enable claims or account role';
+            });
+        }
+    };
+    
+    var gotoProfile = function(){
+        window.location = keycloak.createAccountUrl();
+    }
+    
+    var showLoginPanel =function(){
+        document.getElementById('userprofile').style.display = "none";
+        document.getElementById('loginpanel').style.display = "block";
+    };
+    
+    var login = function(){
+        keycloak.login()  
+    }
+    
+    var logout = function() {
+      keycloak.logout()  
+    }
+    var loadFailure = function () {
+        document.getElementById('customers').innerHTML = '<b>Failed to load data.  Check console log</b>';
+    };
+    var reloadData = function () {
+        keycloak.updateToken(10)
+                .then(loadUserData)
+                .catch(function(e) {
+                console.log(e)
+                    console.log("Failed to load data.  User is logged out.");
+                    showLoginPanel()
+                });
+    }
+    keycloak.init().then(function(authenticated) {
+        if(authenticated){
+            reloadData()
+        }
+        else {
+            showLoginPanel()
+        }
+    }).catch(function() {
+        alert('failed to initialize');
+    });
+    keycloak.init({
+        onLoad: 'check-sso',
+        silentCheckSsoRedirectUri: window.location.origin + "/{% url 'user-check-sso' %}"
+    }).success(reloadData);
+</script>
+
+
+
+       
+
+

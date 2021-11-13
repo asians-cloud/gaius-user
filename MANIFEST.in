@@ -1,0 +1,5 @@
+include MANIFEST.in
+include LICENSE
+include README.rst
+recursive-include src/caesar_user/templates *
+recursive-include docs *
