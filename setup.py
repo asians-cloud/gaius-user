@@ -11,7 +11,7 @@ with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme:
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name='caesar-user',
+    name='gaius-user',
     version=VERSION,
     long_description=README,
     package_dir={'': 'src'},
@@ -44,11 +44,11 @@ setup(
         'factory-boy',
         'freezegun'
     ],
-    url='https://github.com/rq0net/caesar-user',
+    url='https://github.com/rq0net/gaius-user',
     license='MIT',
     author='Rabbit',
     author_email='rq0net@gmail.com',
-    description='Install Caesar User.',
+    description='Install Gaius User.',
     classifiers=[]
 
 )

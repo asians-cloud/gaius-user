@@ -1,10 +1,10 @@
 ===============
-Caesar User
+Gaius User
 ===============
 
 
 
-Django app to add Keycloak support to Caesar project.
+Django app to add Keycloak support to Gaius project.
 
 
 An showcase/demo project is added in the `example folder <example/README.md>`_.
@@ -30,13 +30,13 @@ First build the Docker container:
 
 .. code:: bash
 
-    $ docker build . -f DockerfileDocs -t caesar-user-docs
+    $ docker build . -f DockerfileDocs -t gaius-user-docs
 
 Run the container
 
 .. code:: bash
 
-    $ docker run -v `pwd`:/src --rm -t -i -p 8050:8050 caesar-user-docs
+    $ docker run -v `pwd`:/src --rm -t -i -p 8050:8050 gaius-user-docs
 
 Go in the browser to http://localhost:8050 and view the documentation which get
 refreshed and updated on every update in the documentation source.
